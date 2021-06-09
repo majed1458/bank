@@ -6,8 +6,7 @@
   "scripts": {
     "back": "nodemon index",
     "front": "cd client && npm start ",
-    "dev" :"concurrently \"npm run front\" \"npm run back\""
-
+    "dev": "concurrently \"npm run front\" \"npm run back\""
   },
   "keywords": [],
   "author": "",
