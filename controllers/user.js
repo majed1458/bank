@@ -5,49 +5,24 @@ const jwt = require("jsonwebtoken");
 exports.signup = async (req, res) => {
   try {
     //req.body => newUser
-    const { firstName, lastName, email, position, gender, CIN, phone, adresse } =
-      req.body;
+    // const { firstName, lastName, email, position, gender, CIN, phone, adresse } =
+    //   req.body;
     console.log(req.body);
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ email: req.body.email });
     if (foundUser) {
-      res.status(400).send({ errors: [{ msg: "Email should be unique" }] });
-      return;
+     return res.status(400).send({ errors: [{ msg: "Email should be unique" }] });
+      
     }
-    console.log(foundUser);
+    console.log(foundUser+"hani hne");
     // hash the password
-    const newUser = new User({
-      firstName,
-      lastName,
-      email,
-      position,
-      gender,
-      CIN,
-
-      phone,
-      adresse,
-    });
-
-    //
-
-    // console.log(hashedpassword);
-
-    // const newUser
+    const newUser = await User.create({ ...req.body });
 
 
-    //save
-
-    //creation token
-    const token = jwt.sign(
-      {
-        id: newUser._id,
-      },
-      process.env.SECRET_KEY,
-      { expiresIn: "1h" }
-    );
-    res.status(200).send({ msg: "signup sucess", user: newUser, token });
+    return res.status(200).send({ msg: "signup sucess", user: newUser});
     // envoi mail
   } catch (error) {
-    res.status(400).send({
+    console.log(error)
+    return res.status(400).send({
       errors: [{ msg: "can not save the user" }],
     });
   }

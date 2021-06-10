@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "back": "nodemon index",
+    "start": "nodemon index",
     "front": "cd client && npm start ",
     "dev": "concurrently \"npm run front\" \"npm run back\""
   },
